@@ -1,0 +1,187 @@
+
+<style>
+  .page { background: var(--color-background-tertiary); min-height: 100vh; padding: 2rem 1rem; display: flex; align-items: flex-start; justify-content: center; }
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 2rem; width: 100%; max-width: 520px; }
+  .page-header { text-align: center; margin-bottom: 1.75rem; }
+  .page-header h1 { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 4px; }
+  .page-header p { font-size: 14px; color: var(--color-text-secondary); margin: 0; }
+  .field { margin-bottom: 1.25rem; }
+  .field label { display: block; font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 6px; }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 9px 12px; font-size: 14px;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    transition: border-color 0.15s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: #378ADD;
+  }
+  .field textarea { resize: vertical; min-height: 90px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stars-row { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 2px; }
+  .stars-row input[type="radio"] { display: none; }
+  .stars-row label {
+    font-size: 30px; color: var(--color-border-secondary);
+    cursor: pointer; line-height: 1; transition: color 0.1s;
+    margin: 0;
+  }
+  .stars-row label:hover, .stars-row label:hover ~ label,
+  .stars-row input:checked ~ label { color: #EF9F27; }
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.5rem 0; }
+  .btn-submit {
+    width: 100%; padding: 11px; font-size: 15px; font-weight: 500;
+    background: #185FA5; color: #fff; border: none;
+    border-radius: var(--border-radius-md); cursor: pointer;
+    font-family: var(--font-sans); transition: background 0.15s, transform 0.1s;
+  }
+  .btn-submit:hover { background: #0C447C; }
+  .btn-submit:active { transform: scale(0.98); }
+  .required { color: #E24B4A; margin-left: 2px; }
+  .success-screen {
+    display: none; text-align: center; padding: 2.5rem 1rem;
+  }
+  .success-icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: #EAF3DE; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 1.25rem;
+  }
+  .success-icon i { font-size: 28px; color: #3B6D11; }
+  .success-screen h2 { font-size: 20px; font-weight: 500; margin: 0 0 8px; }
+  .success-screen p { font-size: 14px; color: var(--color-text-secondary); margin: 0 0 1.5rem; }
+  .btn-reset {
+    padding: 9px 24px; font-size: 14px; font-weight: 500;
+    background: transparent; color: var(--color-text-primary);
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md); cursor: pointer;
+    font-family: var(--font-sans); transition: background 0.15s;
+  }
+  .btn-reset:hover { background: var(--color-background-secondary); }
+  .error-msg { font-size: 12px; color: #E24B4A; margin-top: 4px; display: none; }
+  .field.has-error input, .field.has-error select, .field.has-error textarea {
+    border-color: #E24B4A;
+  }
+  .field.has-error .error-msg { display: block; }
+</style>
+
+<div class="page">
+  <div class="card">
+
+    <div id="form-section">
+      <div class="page-header">
+        <h1><i class="ti ti-star" aria-hidden="true"></i> Avaliação de serviços</h1>
+        <p>Preencha os campos abaixo para registrar seu feedback</p>
+      </div>
+
+      <div class="field" id="f-nome">
+        <label>Nome do cliente <span class="required">*</span></label>
+        <input type="text" id="nome" placeholder="Seu nome completo" />
+        <div class="error-msg">Informe seu nome.</div>
+      </div>
+
+      <div class="row">
+        <div class="field" id="f-servico">
+          <label>Tipo de serviço <span class="required">*</span></label>
+          <select id="servico">
+            <option value="">Selecione...</option>
+            <option>Corte de cabelo</option>
+            <option>Manicure / Pedicure</option>
+            <option>Massagem</option>
+            <option>Limpeza de pele</option>
+            <option>Outro</option>
+          </select>
+          <div class="error-msg">Selecione um serviço.</div>
+        </div>
+
+        <div class="field" id="f-data">
+          <label>Data da avaliação <span class="required">*</span></label>
+          <input type="date" id="data" />
+          <div class="error-msg">Informe a data.</div>
+        </div>
+      </div>
+
+      <div class="field" id="f-profissional">
+        <label>Nome do profissional <span class="required">*</span></label>
+        <input type="text" id="profissional" placeholder="Nome de quem te atendeu" />
+        <div class="error-msg">Informe o nome do profissional.</div>
+      </div>
+
+      <div class="field" id="f-nota">
+        <label>Nota <span class="required">*</span></label>
+        <div class="stars-row">
+          <input type="radio" name="nota" id="s5" value="5" />
+          <label for="s5">★</label>
+          <input type="radio" name="nota" id="s4" value="4" />
+          <label for="s4">★</label>
+          <input type="radio" name="nota" id="s3" value="3" />
+          <label for="s3">★</label>
+          <input type="radio" name="nota" id="s2" value="2" />
+          <label for="s2">★</label>
+          <input type="radio" name="nota" id="s1" value="1" />
+          <label for="s1">★</label>
+        </div>
+        <div class="error-msg">Selecione uma nota.</div>
+      </div>
+
+      <div class="field" id="f-comentario">
+        <label>Comentário <span class="required">*</span></label>
+        <textarea id="comentario" placeholder="Conte como foi sua experiência..."></textarea>
+        <div class="error-msg">Escreva um comentário.</div>
+      </div>
+
+      <hr class="divider" />
+
+      <button class="btn-submit" onclick="enviar()">
+        <i class="ti ti-send" aria-hidden="true"></i> Enviar avaliação
+      </button>
+    </div>
+
+    <div class="success-screen" id="success-section">
+      <div class="success-icon"><i class="ti ti-check"></i></div>
+      <h2>Avaliação enviada!</h2>
+      <p>Obrigado pelo seu feedback. Sua avaliação foi registrada com sucesso.</p>
+      <button class="btn-reset" onclick="resetar()">Fazer nova avaliação</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function enviar() {
+  var ok = true;
+  function check(fieldId, inputId, fn) {
+    var el = document.getElementById(inputId);
+    var wrap = document.getElementById(fieldId);
+    var valid = fn(el);
+    wrap.classList.toggle('has-error', !valid);
+    if (!valid) ok = false;
+  }
+  check('f-nome', 'nome', function(e){ return e.value.trim() !== ''; });
+  check('f-servico', 'servico', function(e){ return e.value !== ''; });
+  check('f-data', 'data', function(e){ return e.value !== ''; });
+  check('f-profissional', 'profissional', function(e){ return e.value.trim() !== ''; });
+  check('f-comentario', 'comentario', function(e){ return e.value.trim() !== ''; });
+  var notaChecked = document.querySelector('input[name="nota"]:checked');
+  document.getElementById('f-nota').classList.toggle('has-error', !notaChecked);
+  if (!notaChecked) ok = false;
+  if (!ok) return;
+  document.getElementById('form-section').style.display = 'none';
+  document.getElementById('success-section').style.display = 'block';
+}
+function resetar() {
+  document.getElementById('nome').value = '';
+  document.getElementById('servico').value = '';
+  document.getElementById('data').value = '';
+  document.getElementById('profissional').value = '';
+  document.getElementById('comentario').value = '';
+  var checked = document.querySelector('input[name="nota"]:checked');
+  if (checked) checked.checked = false;
+  ['f-nome','f-servico','f-data','f-profissional','f-comentario','f-nota'].forEach(function(id){
+    document.getElementById(id).classList.remove('has-error');
+  });
+  document.getElementById('form-section').style.display = 'block';
+  document.getElementById('success-section').style.display = 'none';
+}
+</script>
