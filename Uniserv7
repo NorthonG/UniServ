@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="UniServ(1).jpeg">
+<title>UniServ</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+background:#f4f7fb;
+color:#0f172a;
+}
+
+.container{
+max-width:1400px;
+margin:auto;
+min-height:100vh;
+background:#fff;
+overflow:hidden;
+position:relative;
+display:flex;
+flex-direction:column;
+box-shadow:0 0 20px rgba(0,0,0,0.08);
+}
+
+.tela{
+display:none;
+min-height:100vh;
+}
+
+.tela.ativa{
+display:block;
+}
+
+.banner{
+width:100%;
+height:500px;
+object-fit:cover;
+}
+
+.logo-texto{
+text-align:center;
+padding:20px;
+}
+
+.logo-texto h1{
+font-size:44px;
+color:#1565ff;
+margin-bottom:10px;
+}
+
+.logo-texto p{
+color:#555;
+font-size:18px;
+}
+
+.formulario{
+padding:30px;
+max-width:500px;
+margin:auto;
+}
+
+.input{
+width:100%;
+height:55px;
+border-radius:16px;
+border:2px solid #1565ff;
+padding:0 15px;
+font-size:15px;
+margin-bottom:15px;
+}
+
+.conta-box{
+border:2px solid #dbeafe;
+border-radius:18px;
+padding:18px;
+margin-bottom:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.conta-box.ativa{
+border-color:#1565ff;
+background:#eff6ff;
+}
+
+.conta-box h3{
+font-size:18px;
+margin-bottom:8px;
+}
+
+.conta-box p{
+color:#666;
+line-height:1.5;
+}
+
+.botao{
+width:100%;
+height:56px;
+border:none;
+border-radius:18px;
+background:#1565ff;
+color:white;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+}
+
+.header{
+background:#1565ff;
+padding:25px 40px;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.header h2{
+font-size:30px;
+}
+
+.busca{
+padding:15px;
+background:white;
+}
+
+.categorias{
+display:flex;
+gap:10px;
+overflow-x:auto;
+padding:0 15px 15px;
+background:white;
+}
+
+.categoria{
+min-width:110px;
+height:42px;
+border-radius:20px;
+border:none;
+background:#e8f0ff;
+color:#1565ff;
+font-weight:bold;
+cursor:pointer;
+}
+
+.categoria.ativa{
+background:#1565ff;
+color:white;
+}
+
+.cards{
+padding:30px;
+padding-bottom:120px;
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+border-radius:22px;
+padding:18px;
+margin-bottom:16px;
+box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+
+.topo-card{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+}
+
+.topo-card h3{
+font-size:22px;
+}
+
+.avaliacao{
+color:#1565ff;
+font-weight:bold;
+}
+
+.tag{
+display:inline-block;
+padding:6px 12px;
+border-radius:12px;
+background:#eff6ff;
+color:#1565ff;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.descricao{
+line-height:1.5;
+color:#555;
+margin-bottom:12px;
+}
+
+.preco{
+font-size:20px;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+.menu{
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+width:100%;
+max-width:1400px;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+border-top:1px solid #ddd;
+}
+
+.menu button{
+background:none;
+border:none;
+font-size:15px;
+color:#777;
+cursor:pointer;
+}
+
+.menu .ativo{
+color:#1565ff;
+font-weight:bold;
+}
+
+.pagina{
+display:none;
+}
+
+.pagina.ativa{
+display:block;
+}
+
+.perfil{
+padding:20px;
+text-align:center;
+}
+
+.avatar{
+width:120px;
+height:120px;
+border-radius:50%;
+background:#1565ff;
+margin:20px auto;
+}
+
+.perfil h3{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.perfil p{
+color:#666;
+margin-bottom:10px;
+}
+
+.servicos-box{
+padding:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+gap:20px;
+}
+
+.servico-item{
+background:white;
+padding:16px;
+border-radius:18px;
+margin-bottom:15px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.servico-item h4{
+margin-bottom:8px;
+font-size:20px;
+}
+
+.servico-item p{
+color:#666;
+line-height:1.5;
+}
+@media (min-width: 900px){
+
+#cadastroTela{
+display:flex;
+flex-direction:column;
+}
+
+.formulario{
+max-width:600px;
+}
+
+.logo-texto h1{
+font-size:72px;
+}
+
+.logo-texto p{
+font-size:24px;
+}
+
+.busca{
+padding:25px 30px 10px;
+}
+
+.categorias{
+padding:0 30px 20px;
+}
+
+.input{
+font-size:17px;
+}
+
+.menu button{
+font-size:18px;
+}
+
+.perfil{
+padding:50px;
+}
+
+.perfil h3{
+font-size:40px;
+}
+
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- TELA DE CADASTRO -->
+<div class="tela ativa" id="cadastroTela">
+
+<img src="foto uniserv.png" class="banner">
+
+<div class="logo-texto">
+<h1>UNISERV</h1>
+<p>A pessoa certa na hora certa</p>
+</div>
+
+<div class="formulario">
+
+<div class="conta-box ativa" onclick="selecionarConta(this)">
+<h3>Contratante</h3>
+<p>Quero contratar profissionais para minha casa.</p>
+</div>
+
+<div class="conta-box" onclick="selecionarConta(this)">
+<h3>Prestador de serviço</h3>
+<p>Quero oferecer meus serviços na plataforma.</p>
+</div>
+
+<input class="input" type="text" placeholder="Nome completo">
+<input class="input" type="email" placeholder="E-mail">
+<input class="input" type="password" placeholder="Senha">
+
+<button class="botao" onclick="abrirApp()">
+Criar conta
+</button>
+
+</div>
+
+</div>
+
+<!-- APP -->
+<div class="tela" id="appTela">
+
+<div class="header">
+<h2>UniServ</h2>
+<span>Online</span>
+</div>
+
+<!-- INÍCIO -->
+<div class="pagina ativa" id="inicio">
+
+<div class="busca">
+<input class="input" type="text" placeholder="Buscar serviços...">
+</div>
+
+<div class="categorias">
+<button class="categoria ativa">Todos</button>
+<button class="categoria">Diarista</button>
+<button class="categoria">Pintor</button>
+<button class="categoria">Encanador</button>
+<button class="categoria">Eletricista</button>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<div class="topo-card">
+<h3>Maria Limpeza</h3>
+<span class="avaliacao">4.9 ⭐</span>
+</div>
+
+<div class="tag">Diarista</div>
+
+<p class="descricao">
+Serviço completo de limpeza e organização residencial.
+</p>
+
+<div class="preco">R$ 120/dia</div>
+
+<button class="botao">Contratar</button>
+</div>
+
+<div class="card">
+<div class="topo-card">
+<h3>Carlos Pinturas</h3>
+<span class="avaliacao">4.8 ⭐</span>
+</div>
+
+<div class="tag">Pintor</div>
+
+<p class="descricao">
+Pintura residencial com acabamento profissional.
+</p>
+
+<div class="preco">R$ 250</div>
+
+<button class="botao">Contratar</button>
+</div>
+
+<div class="card">
+<div class="topo-card">
+<h3>João Encanador</h3>
+<span class="avaliacao">5.0 ⭐</span>
+</div>
+
+<div class="tag">Encanador</div>
+
+<p class="descricao">
+Instalações hidráulicas e reparos domésticos.
+</p>
+
+<div class="preco">R$ 90/hora</div>
+
+<button class="botao">Contratar</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- SERVIÇOS -->
+<div class="pagina" id="servicos">
+<div class="servicos-box">
+
+<div class="servico-item">
+<h4>Serviços de Limpeza</h4>
+<p>Diaristas, faxina pesada, limpeza pós-obra e organização.</p>
+</div>
+
+<div class="servico-item">
+<h4>Serviços Hidráulicos</h4>
+<p>Consertos de vazamentos, instalação de torneiras e manutenção.</p>
+</div>
+
+<div class="servico-item">
+<h4>Pintura Residencial</h4>
+<p>Pintura interna e externa com acabamento profissional.</p>
+</div>
+
+<div class="servico-item">
+<h4>Serviços Elétricos</h4>
+<p>Instalações elétricas, tomadas e manutenção residencial.</p>
+</div>
+
+</div>
+</div>
+
+<!-- PERFIL -->
+<div class="pagina" id="perfil">
+<div class="perfil">
+
+<div class="avatar"></div>
+
+<h3>Usuário UniServ</h3>
+<p>Conta ativa na plataforma</p>
+<p>Avaliação média: 4.9 ⭐</p>
+<p>Serviços contratados: 12</p>
+
+<button class="botao">
+Editar Perfil
+</button>
+
+</div>
+</div>
+
+<div class="menu">
+<button class="ativo" onclick="mostrarPagina('inicio', this)">
+🏠 Início
+</button>
+
+<button onclick="mostrarPagina('servicos', this)">
+🛠 Serviços
+</button>
+
+<button onclick="mostrarPagina('perfil', this)">
+👤 Perfil
+</button>
+</div>
+
+</div>
+
+</div>
+
+<script>
+function abrirApp(){
+document.getElementById('cadastroTela').classList.remove('ativa');
+document.getElementById('appTela').classList.add('ativa');
+}
+
+function mostrarPagina(id, botao){
+let paginas = document.querySelectorAll('.pagina');
+paginas.forEach(pagina => {
+pagina.classList.remove('ativa');
+});
+
+document.getElementById(id).classList.add('ativa');
+
+let botoes = document.querySelectorAll('.menu button');
+botoes.forEach(btn => {
+btn.classList.remove('ativo');
+});
+
+botao.classList.add('ativo');
+}
+
+function selecionarConta(elemento){
+let contas = document.querySelectorAll('.conta-box');
+contas.forEach(conta => {
+conta.classList.remove('ativa');
+});
+
+elemento.classList.add('ativa');
+}
+</script>
+
+</body>
+</html>
